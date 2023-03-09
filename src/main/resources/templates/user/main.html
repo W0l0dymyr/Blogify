@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<h1 th:inline="text" style="color:purple">Blogify</h1>
+<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+<div><form method="post" th:action="@{/logout}">
+    <div>
+        <input type="submit" value="Вийти">
+    </div>
+</form></div>
+</body>
+</html>

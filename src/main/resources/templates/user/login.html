@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div><p th:text="${message}" th:if="${message!=null}"></p></div>
+<form method="post" th:object="${user}" th:action="@{/login}">
+  <div><label>Ім'я:   <input type="text" name="username"></label></div>
+  <div><label>Пароль: <input type="password" name="password"></label></div>
+  <div><input type="submit" value="Увійти"></div>
+</form>
+<div><a th:href="@{/registration}">Реєстрація</a> </div>
+</body>
+</html>

@@ -7,6 +7,7 @@
 <body>
 <h1 th:inline="text" style="color:purple">Blogify</h1>
 <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+<div><a th:href="@{/posts}">Стрічка постів</a> </div>
 <div><form method="post" th:action="@{/logout}">
     <div>
         <input type="submit" value="Вийти">

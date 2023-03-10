@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Post</title>
+</head>
+<body>
+<div><a th:href="@{/posts}">Стрічка постів</a> </div>
+<h1 th:inline="text">Створення нового посту</h1>
+<form method="post" th:action="@{/posts/new_post}" th:object="${post}">
+<div><input type="text" name="title" placeholder="Тема"></div>
+<div><input type="text" name="text" placeholder="Текст"></div>
+    <div><input type="submit" value="Створити"></div>
+</form>
+
+
+<!--<form th:action="/posts" method="post">-->
+<!--    <label for="title">Заголовок:</label><br>-->
+<!--    <input type="text" id="title" name="title"><br>-->
+<!--    <label for="text">Текст:</label><br>-->
+<!--    <textarea id="text" name="text"></textarea><br>-->
+<!--    <input type="submit" value="Створити">-->
+<!--</form>-->
+</body>
+</html>

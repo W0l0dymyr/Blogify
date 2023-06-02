@@ -1,44 +1,85 @@
 package Blogify.configs;
 
 
+import Blogify.entities.CustomOAuth2User;
+
+import Blogify.services.CustomOAuth2UserService;
 import Blogify.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig   {
+public class WebSecurityConfig {
 
     @Autowired
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CustomOAuth2UserService oauthUserService;
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers( "/registration", "/activate/*").permitAll()
+        http.authorizeHttpRequests()
+                .requestMatchers("/registration").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
-                .and().logout().permitAll();
+                .formLogin()
+                .loginPage("/login")
+                .and().logout().permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login").defaultSuccessUrl("/")
+                .userInfoEndpoint()
+                .userService(oauthUserService)
+                .and()
+                .successHandler((request, response, authentication) -> {
+                    CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+                    UserDetails user = null;
+                    try {
+                        user = userService.loadUserByUsername(oauthUser.getName());
+                    } catch (UsernameNotFoundException e) {
+
+                        userService.processOAuthPostLogin(oauthUser.getEmail(), oauthUser.getName());
+                        user = userService.loadUserByUsername(oauthUser.getName());
+                    }
+
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                    try {
+                        response.sendRedirect("/");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
         return http.build();
-    }
+}
+
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userService).passwordEncoder(passwordEncoder)
                 .and().build();
     }
-
-        }
+}

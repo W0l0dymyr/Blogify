@@ -1,10 +1,15 @@
 package Blogify.entities;
 
+import jakarta.persistence.*;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
@@ -27,6 +32,17 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @OneToMany(mappedBy = "author")
     private List<BlogPost> post;
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -86,6 +102,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
+
     public List<BlogPost> getPost() {
         return post;
     }
@@ -102,4 +120,5 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(id, username, password, email);
     }
+
 }

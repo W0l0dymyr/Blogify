@@ -1,8 +1,10 @@
 package Blogify.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+;
+
 import java.time.LocalDate;
-import java.util.Locale;
+
 
 @Entity
 @Table(name = "posts")

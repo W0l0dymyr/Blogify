@@ -12,11 +12,13 @@
 <table>
     <tr>
         <th>Дата</th>
+        <th>Автор</th>
         <th>Тема</th>
         <th></th>
     </tr>
     <tr th:each="post:${posts}">
         <td th:text="${post.getDate()}"></td>
+        <td th:text="${post.getAuthor().getUsername()}"></td>
         <td th:text="${post.getTitle()}"></td>
         <td><a th:href="@{/posts/{id}(id=${post.getId()})}">Переглянути</a></td>
     </tr>

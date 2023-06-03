@@ -1,6 +1,7 @@
 services:
   - name: blogify
-    git: git@github.com:your-username/your-repo.git
+    git: git@github.com:W0l0dymyr/Blogify.git
+
     buildCommand: docker build -t blogify .
     startCommand: docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal/blogify -e SPRING_DATASOURCE_USERNAME=user -e SPRING_DATASOURCE_PASSWORD=samsung blogify
     healthCheckPath: /

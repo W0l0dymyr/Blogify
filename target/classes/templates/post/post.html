@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+</head>
+<body>
+<div><a th:href="@{/posts}">Стрічка постів</a> </div>
+<h1 th:inline="text">Перегляд посту</h1>
+<h2 th:text="${post.getTitle()}"></h2>
+<div><p th:text="${post.getDate()}"></p></div>
+<p th:text="${post.getText()}"></p>
+<form method="post" th:action="@{/posts/{id}/delete(id=${post.getId()})}">
+<!--<form method="post" th:action="@{/posts/{post}/delete}">-->
+<input type="submit" value="Стерти пост">
+</form>
+</body>
+
+
+</html>

@@ -1,0 +1,31 @@
+body {
+    background-color: MediumSlateBlue;
+}
+
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* додаткові відступи для заголовка */
+h1 {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* відступи між елементами таблиці */
+td {
+    padding: 5px;
+}
+
+/* відступи між рядками таблиці */
+tr {
+    margin-bottom: 10px;
+}

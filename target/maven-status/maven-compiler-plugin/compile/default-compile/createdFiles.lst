@@ -1,0 +1,17 @@
+Blogify\configs\BeanConfig.class
+Blogify\entities\Provider.class
+Blogify\services\BlogPostService.class
+Blogify\repositories\BlogPostRepo.class
+Blogify\entities\Role.class
+Blogify\BlogifyApplication.class
+Blogify\entities\BlogPost.class
+Blogify\configs\MvcConfig.class
+Blogify\controllers\RegistrationController.class
+Blogify\controllers\MainController.class
+Blogify\repositories\UserRepo.class
+Blogify\services\UserService.class
+Blogify\controllers\BlogController.class
+Blogify\entities\User.class
+Blogify\entities\CustomOAuth2User.class
+Blogify\services\CustomOAuth2UserService.class
+Blogify\configs\WebSecurityConfig.class

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Blogify.BlogifyApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.038 s - in Blogify.BlogifyApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.799 s - in Blogify.BlogifyApplicationTests
